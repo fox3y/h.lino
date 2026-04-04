@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Oficial | @Olinuh</title>
+    <title>Marketplace Elite | @Olinuh</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -14,9 +14,10 @@
             --blue: #58a6ff;
             --gold: #f2c94c;
             --green: #3fb950;
+            --purple: #a371f7;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
 
         body {
             background-color: var(--bg);
@@ -25,122 +26,165 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        .header { text-align: center; margin-bottom: 40px; width: 100%; max-width: 800px; }
+        /* Header e Botão Voltar */
+        .header { text-align: center; margin-bottom: 50px; width: 100%; max-width: 800px; animation: fadeInDown 0.8s ease; }
+        
         .back-btn { 
-            color: var(--blue); text-decoration: none; font-size: 0.9rem; 
-            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px;
+            color: var(--gray); text-decoration: none; font-size: 0.85rem; 
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 30px;
+            transition: color 0.3s;
         }
+        .back-btn:hover { color: var(--blue); }
 
-        h1 { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
+        h1 { font-size: 2.5rem; font-weight: 800; background: linear-gradient(45deg, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+        .header p { color: #8b949e; font-size: 1.1rem; }
 
+        /* Grid de Produtos */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
+            animation: fadeInUp 1s ease;
         }
 
         .product-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 20px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            justify-content: space-between;
         }
 
+        /* Efeito de Brilho no Hover */
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(242, 201, 76, 0.1);
         }
 
-        .product-img {
-            width: 100%;
-            height: 150px;
-            background: #0d1117;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--gold);
-        }
-
-        .product-info h3 { font-size: 1.2rem; margin-bottom: 8px; }
-        .product-info p { font-size: 0.85rem; color: #8b949e; margin-bottom: 15px; }
-
-        .price-tag {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--green);
-            margin-bottom: 15px;
-        }
-
-        .buy-btn {
+        /* Badge de destaque */
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
             background: var(--gold);
             color: #000;
-            text-align: center;
-            padding: 12px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.2s;
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
         }
 
-        .buy-btn:hover { opacity: 0.8; }
+        .product-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--gold);
+            filter: drop-shadow(0 0 10px rgba(242, 201, 76, 0.3));
+        }
 
-        .footer { margin-top: 50px; color: #8b949e; font-size: 0.8rem; }
+        .product-info h3 { font-size: 1.4rem; margin-bottom: 12px; color: #fff; }
+        .product-info p { font-size: 0.95rem; color: #8b949e; margin-bottom: 25px; line-height: 1.5; }
+
+        .price-area { margin-top: auto; border-top: 1px solid var(--border); padding-top: 20px; }
+        .price-label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; }
+        .price-tag { font-size: 2rem; font-weight: 800; color: var(--green); margin-bottom: 20px; }
+
+        .buy-btn {
+            background: linear-gradient(90deg, var(--gold), #ffdb70);
+            color: #000;
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 800;
+            display: block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .buy-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(242, 201, 76, 0.4);
+        }
+
+        /* Animações */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer { margin-top: 80px; color: #484f58; font-size: 0.85rem; text-align: center; }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar ao Painel</a>
-        <h1>Lojinha</h1>
-        <p>Scripts e ferramentas exclusivas para o seu fluxo</p>
+        <a href="index.html" class="back-btn"><i class="fas fa-chevron-left"></i> Painel de Controle</a>
+        <h1>loja do Olinuh</h1>
+        <p>Transforme seu conhecimento e sua produtividade hoje.</p>
     </div>
 
     <div class="products-grid">
         
         <div class="product-card">
-            <div class="product-img"><i class="fas fa-robot"></i></div>
+            <span class="badge">🔥 Popular</span>
+            <div class="product-icon"><i class="fas fa-chart-pie"></i></div>
             <div class="product-info">
-                <h3>Bot de WhatsApp</h3>
-                <p>Automação completa para atendimento automático.</p>
-                <div class="price-tag">R$ 49,90</div>
-                <a href="https://wa.me/5579981304655" class="buy-btn">Comprar Agora</a>
+                <h3>Visão de Águia</h3>
+                <p>Tenha o controle total do seu negócio na palma da mão com dashboards em tempo real. Decida com dados, não com sorte.</p>
+            </div>
+            <div class="price-area">
+                <p class="price-label">Investimento Único</p>
+                <div class="price-tag">R$ 47,00</div>
+                <a href="https://wa.me/5579981304655?text=Olá!%20Quero%20ter%20o%20controle%20total%20com%20o%20Dashboard%20de%20Métricas" class="buy-btn" target="_blank">GARANTIR ACESSO</a>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="product-img"><i class="fas fa-database"></i></div>
+            <span class="badge" style="background: var(--blue); color: #fff;">📚 Essencial</span>
+            <div class="product-icon" style="color: var(--blue);"><i class="fas fa-brain"></i></div>
             <div class="product-info">
-                <h3>Pack de SQL</h3>
-                <p>Scripts otimizados para bancos de dados PostgreSQL e MySQL.</p>
+                <h3>O Fim do Medo</h3>
+                <p>Desbloqueie o raciocínio lógico e aprenda matemática de um jeito que nunca te ensinaram na escola. Liberdade total.</p>
+            </div>
+            <div class="price-area">
+                <p class="price-label">Investimento Único</p>
                 <div class="price-tag">R$ 29,90</div>
-                <a href="https://wa.me/5579981304655" class="buy-btn">Comprar Agora</a>
+                <a href="https://wa.me/5579981304655?text=Olá!%20Quero%20perder%20o%20medo%20da%20matemática%20e%20aprender%20de%20verdade" class="buy-btn" target="_blank" style="background: linear-gradient(90deg, var(--blue), #80bdff);">QUERO APRENDER</a>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="product-img"><i class="fas fa-code"></i></div>
+            <span class="badge" style="background: var(--purple); color: #fff;">🏆 Elite</span>
+            <div class="product-icon" style="color: var(--purple);"><i class="fas fa-graduation-cap"></i></div>
             <div class="product-info">
-                <h3>Template Dashboard</h3>
-                <p>O código fonte deste painel de controle para você usar.</p>
+                <h3>Estudo de Elite</h3>
+                <p>O protocolo secreto para dominar qualquer matéria estudando menos tempo. Notas altas são apenas o começo.</p>
+            </div>
+            <div class="price-area">
+                <p class="price-label">Investimento Único</p>
                 <div class="price-tag">R$ 19,90</div>
-                <a href="https://wa.me/5579981304655" class="buy-btn">Comprar Agora</a>
+                <a href="https://wa.me/5579981304655?text=Olá!%20Quero%20conhecer%20o%20Protocolo%20de%20Elite%20e%20tirar%20notas%20altas" class="buy-btn" target="_blank" style="background: linear-gradient(90deg, var(--purple), #bc95ff);">SER O MELHOR</a>
             </div>
         </div>
 
     </div>
 
     <footer class="footer">
-        <p>© 2026 Olinuh Store - Todos os direitos reservados</p>
+        <p>© 2026 Olinuh Solutions • Todos os direitos reservados</p>
     </footer>
 
 </body>
